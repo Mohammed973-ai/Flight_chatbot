@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from agno.agent import Message
-from chatbot import agent
+from src.chatbot import agent
 import json
 
 app = FastAPI(title="Flight Agent API", version="1.0.0")
