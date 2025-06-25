@@ -3,10 +3,10 @@
 ## Features :
 
 - Flight Search Assistance
-- Booking Support
-- Customer Service
-- Post-Booking Help
-- Flight Status Updates
-- Upselling and Cross-Selling
-- Multi-language Support
-- Loyalty Program Interaction
+- Customer Support
+    - Updating Profile(phone_number, name,language, etc..)
+    - Flight Cancellation
+    - change user password
+    - reset password
+    - general information about flight
+- the chatbot can also maintain memory during session and store user prefernces
