@@ -5,7 +5,7 @@ from agno.memory.v2.memory import Memory
 from dotenv import load_dotenv 
 from agno.storage.sqlite import SqliteStorage 
 from src.helper import *
-from instructions import Instructions
+from src.instructions import Instructions
 from agno.models.google import Gemini
 from agno.models.groq import Groq
 import os
