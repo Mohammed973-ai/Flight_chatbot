@@ -3,7 +3,5 @@ amadeus
 groq
 python-dotenv
 setuptools
-duckduckgo-search
 fastapi
-yfinance
 uvicorn
