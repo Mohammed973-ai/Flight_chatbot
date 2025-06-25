@@ -31,17 +31,3 @@ agent = Agent(
     show_tool_calls=True,                 # logs tool calls (debug/friendly)
     markdown=False                        # disables markdown output formatting
 )
-
-# user_id= "1"
-# session_id="1"
-# # agent.print_response("what is 2+2",
-# #                      session_id=session_id,user_id=user_id)
-# agent.print_response("I want to searrch aflights from cairo to dubai on 10 july 2025 dont ask for any confirmation do your assumtion",
-#                      session_id=session_id,user_id=user_id)
-# agent.print_response("""{"message" : "I want to cancel a flight",
-#                       "access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODM3YzM1NzRiOTMxM2FmMjViNTRlMWYiLCJlbWFpbCI6ImhvcmVqMTYxNDBAb2Z1bGFyLmNvbSIsInJvbGVzIjpbInVzZXIiXSwiaWF0IjoxNzUwMzYxMzg1LCJleHAiOjE3NTA0NDc3ODV9.gltzYMGGxLFF5-DBxxepyC0IzZCTEF_BVE2sVjjWmrQ"}""",
-#                      session_id=session_id,user_id=user_id)
-# agent.print_response("cancel XA240016",
-#                      session_id=session_id,user_id=user_id)
-# agent.print_response("Pretty little baby , hellooooo",
-#     session_id="1",user_id="1")
