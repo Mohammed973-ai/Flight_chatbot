@@ -8,5 +8,5 @@
     - Flight Cancellation
     - change user password
     - reset password
-    - general informations about flight
+    - general information about flight
 - the chatbot can also maintain memory during session and store user prefernces
