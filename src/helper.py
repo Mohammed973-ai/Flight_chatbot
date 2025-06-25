@@ -1,7 +1,7 @@
 from amadeus import Client, ResponseError
 from typing import Optional, List
 from agno.tools import tool
-from src.instructions import FAQ_data
+from instructions import FAQ_data
 from dotenv import load_dotenv 
 import os 
 import re
@@ -519,6 +519,6 @@ def customer_service(query: str) -> dict:
         return {
             "type": "customer_service",
             "success": False,
-            "message": "An error occurred while processing your request",
+            "message": "An error occurred while processing your request,please try again later...",
             "data":None
         }
