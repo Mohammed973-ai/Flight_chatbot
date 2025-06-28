@@ -47,7 +47,7 @@ async def chat_handler(data: ChatInput):
 
     msg = Message(
         role="user",
-        content=message + (f" my_access token : {token}" if token else "")+",responde in json like this:\n{ 'type' : 'search_flights', or 'booked_flight',or 'cancel_flight',or 'change_user_password',or 'request_password_reset',or 'reset_password_with_code',or 'no_tool_call',or'update_uer_profile',or 'customer_service'\n  'success' : True(boolean)| False(boolean)(in case of exception)\n 'message' : 'type your reply to the user here',\n \"login\":True (in case the tool you use need an access token and it is not provided) |False (in case the access token is provided or the tool doesnt need access_token) \n'data': in case you called search_flight tool put the json response that is in the \"data\" here\n \"data\" : None in case of not calling the search flight",
+        content=message + (f" my_access token : {token}" if token else "")+",responde in json like this:\n{ 'type' : 'search_flights', or 'booked_flight',or 'cancel_flight',or 'change_user_password',or 'request_password_reset',or 'reset_password_with_code',or 'no_tool_call',or'update_uer_profile',or 'customer_service'\n  'success' : True(boolean)| False(boolean)(in case of exception)\n 'message' : 'type your reply to the user here',\n \"login\":True (in case the tool you use need an access token and it is not provided) |False (in case the access token is provided or the tool doesnt need access_token) \n'data':  the api flights search json response from amadeus if doesnt exist put null.",
         context={"access_token": token} if token else {}
     )
 
