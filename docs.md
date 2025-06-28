@@ -32,7 +32,7 @@ Send a POST request with the following JSON body:
 - message : the user's message
 - access_token: optional field
 - user_id : can be any string like "1" or "u1"
-- session_id: can be anystring like "2" or "sess2"
+- session_id: can be any string like "2" or "sess2"
 
 ## 📥 Output JSON
 
