@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from agno.agent import Message
 from typing import Optional
 from src.chatbot import agent
+import re
 import json
 
 app = FastAPI(title="Flight Agent API", version="1.0.0")
@@ -53,7 +54,17 @@ async def chat_handler(data: ChatInput):
 
     try:
         response = agent.run(msg, user_id=user_id, session_id=data.session_id)
-        parsed = json.loads(response.content)
+        raw = response.content.strip()
+
+        if raw.startswith("```json"):
+            raw = raw[len("```json"):].strip()
+        elif raw.startswith("```"):
+            raw = raw[len("```"):].strip()
+
+        if raw.endswith("```"):
+            raw = raw[:-3].strip()
+
+        parsed = json.loads(raw)
         return {"response": parsed}
 
     except json.JSONDecodeError:
