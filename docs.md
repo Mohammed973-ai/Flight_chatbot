@@ -12,7 +12,7 @@ This API allows users to interact with a smart flight chatbot for operations lik
 
 ## 🔁 Method
 
-> POST /chat
+**POST** `/chat`
 
 ---
 
