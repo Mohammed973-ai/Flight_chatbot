@@ -48,7 +48,7 @@ Send a POST request with the following JSON body:
 }
 ```
 
-**type** : tells you what the chatbot did whether it used a tool or ran into error and all posible values are ["error","json_error","search_flights", "booked_flight","cancel_flight" ,"update_user_profile","change_user_password", "request_password_reset", "reset_password_with_code", "customer_service", "no_tool_call"]
+- **type** : tells you what the chatbot did whether it used a tool or ran into error and all posible values are ["error","json_error","search_flights", "booked_flight","cancel_flight" ,"update_user_profile","change_user_password", "request_password_reset", "reset_password_with_code", "customer_service", "no_tool_call"]
 
 - **success** : False in case of exception occurred
 - **message** : chatbot reply
