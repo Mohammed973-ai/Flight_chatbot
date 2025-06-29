@@ -40,5 +40,4 @@ jobs:
             pm2 restart flight-chatbot || \
            pm2 start venv/bin/uvicorn --name flight-chatbot --interpreter none -- app:app --host 0.0.0.0 --port 8001 --reload
 
-
             echo "✅ Deployment Done!"
