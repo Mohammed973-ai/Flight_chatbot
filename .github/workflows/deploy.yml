@@ -1,0 +1,36 @@
+name: Deploy Flight Chatbot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: SSH to server and deploy
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd ~/Flight_chatbot
+            git pull origin main
+
+            # Create venv if not exist
+            if [ ! -d "venv" ]; then
+              python3 -m venv venv
+            fi
+
+            # Activate venv and install requirements
+            source venv/bin/activate
+            pip install -r requirements.txt
+
+            # Restart app with PM2
+            pm2 restart flight-chatbot || pm2 start "venv/bin/python3 app.py" --name flight-chatbot
