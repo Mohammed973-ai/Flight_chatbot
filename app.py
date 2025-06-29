@@ -55,7 +55,6 @@ async def chat_handler(data: ChatInput):
     try:
         response = agent.run(msg, user_id=user_id, session_id=data.session_id)
         raw = response.content.strip()
-
         if raw.startswith("```json"):
             raw = raw[len("```json"):].strip()
         elif raw.startswith("```"):
