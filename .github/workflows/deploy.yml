@@ -3,7 +3,7 @@ name: Deploy Flight Chatbot
 on:
   push:
     branches:
-      - main
+      - main  # أو الفرع اللي عايز تراقبه
 
 jobs:
   deploy:
@@ -13,24 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: SSH to server and deploy
+      - name: Deploy to Azure VM via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           script: |
+            echo "🔄 Switching to Flight_chatbot directory..."
             cd ~/Flight_chatbot
+
+            echo "✅ Pulling latest code..."
             git pull origin main
-
-            # Create venv if not exist
-            if [ ! -d "venv" ]; then
-              python3 -m venv venv
-            fi
-
-            # Activate venv and install requirements
-            source venv/bin/activate
-            pip install -r requirements.txt
-
-            # Restart app with PM2
-            pm2 restart flight-chatbot || pm2 start "venv/bin/python3 app.py" --name flight-chatbot
