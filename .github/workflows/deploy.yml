@@ -17,8 +17,8 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
           script: |
             echo "🔄 Switching to Flight_chatbot directory..."
             cd ~/Flight_chatbot
