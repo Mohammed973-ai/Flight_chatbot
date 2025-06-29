@@ -3,41 +3,47 @@ name: Deploy Flight Chatbot
 on:
   push:
     branches:
-      - main  # أو الفرع اللي عايز تراقبه
+      - main  
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Deploy to Azure VM via SSH
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
-          script: |
-            echo "🔄 Switching to Flight_chatbot directory..."
-            cd ~/Flight_chatbot
+    - name: Copy files via SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          echo "✅ Switching to project dir"
+          cd ~/Flight_chatbot
 
-            echo "✅ Pulling latest code..."
-            git pull origin main
+          echo "✅ Pulling latest code"
+          git pull origin main
 
-            echo "📦 Creating virtual environment if not exists..."
-            if [ ! -d "venv" ]; then
-              python3 -m venv venv
-            fi
+          echo "✅ Creating .env file"
+          cat <<EOF > .env
+AMADEUS_API_KEY=${{ secrets.AMADEUS_API_KEY }}
+AMADEUS_API_SECRET=${{ secrets.AMADEUS_API_SECRET }}
+BASE_URL=${{ secrets.BASE_URL }}
+GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
+EOF
 
-            echo "📥 Activating venv and installing requirements..."
-            source venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
+          echo "✅ Installing dependencies"
+          source venv/bin/activate
+          pip install -r requirements.txt
 
-            echo "🚀 Starting or Restarting Flight_chatbot with PM2..."
-            pm2 restart flight-chatbot || \
-            pm2 start venv/bin/uvicorn --name flight-chatbot --interpreter none -- app:app --host 0.0.0.0 --port 8001 --reload
+          echo "✅ Restarting PM2 process"
+          pm2 stop flight-chatbot || true
+          pm2 delete flight-chatbot || true
+          pm2 start "venv/bin/uvicorn app:app --host 0.0.0.0 --port 8001" --name flight-chatbot
+          pm2 save
 
-            echo "✅ Deployment Done!"
+          echo "✅ PM2 status:"
+          pm2 status
