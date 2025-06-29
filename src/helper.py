@@ -53,7 +53,7 @@ def search_flights(
         }
         params = {k: v for k, v in params.items() if v is not None}
         response = amadeus.shopping.flight_offers_search.get(**params)
-        results = response.data
+        results = response
 
         if not results:
             return {
