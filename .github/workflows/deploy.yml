@@ -17,11 +17,27 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             echo "🔄 Switching to Flight_chatbot directory..."
             cd ~/Flight_chatbot
 
             echo "✅ Pulling latest code..."
             git pull origin main
+
+            echo "📦 Creating virtual environment if not exists..."
+            if [ ! -d "venv" ]; then
+              python3 -m venv venv
+            fi
+
+            echo "📥 Activating venv and installing requirements..."
+            source venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+
+            echo "🚀 Starting or Restarting Flight_chatbot with PM2..."
+            pm2 restart flight-chatbot || \
+            pm2 start "venv/bin/uvicorn app:app --host 0.0.0.0 --port 8001" --name flight-chatbot
+
+            echo "✅ Deployment Done!"
