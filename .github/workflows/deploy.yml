@@ -39,11 +39,22 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
-          echo "✅ Restarting PM2 process"
-          pm2 stop flight-chatbot || true
+          echo "✅ Creating start.sh..."
+          cat << 'EOF' > start.sh
+          #!/bin/bash
+          cd /home/azureuser/Flight_chatbot
+          source venv/bin/activate
+          exec uvicorn app:app --host 0.0.0.0 --port 8001
+          EOF
+
+          chmod +x start.sh
+
+          echo "✅ Starting/Restarting PM2 process..."
           pm2 delete flight-chatbot || true
-          pm2 start "venv/bin/uvicorn app:app --host 0.0.0.0 --port 8001" --name flight-chatbot
+          pm2 start ./start.sh --name flight-chatbot
           pm2 save
+
+          echo "🚀 Deployment complete!"
 
           echo "✅ PM2 status:"
           pm2 status
