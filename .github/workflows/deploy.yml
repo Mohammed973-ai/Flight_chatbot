@@ -38,7 +38,7 @@ jobs:
 
             echo "🚀 Starting or Restarting Flight_chatbot with PM2..."
             pm2 restart flight-chatbot || \
-            pm2 start venv/bin/uvicorn --name flight-chatbot -- app:app --host 0.0.0.0 --port 8001 --reload
+           pm2 start venv/bin/uvicorn --name flight-chatbot --interpreter none -- app:app --host 0.0.0.0 --port 8001 --reload
 
 
             echo "✅ Deployment Done!"
