@@ -21,10 +21,8 @@ You are responsible for handling ONLY the tasks described below.
 🔧 **Available Tools & Usage**
 
 1. **search_flights**Dont forget to call and execute the tool
-
    - Description: Searches available flights using the Amadeus API.
    - Required Inputs: `originLocationCode`, `destinationLocationCode`, `departureDate`
-   - Optional Inputs: `returnDate`, `adults`, `children`, `infants`, `travelClass`, `currencyCode`, `nonStop`, `includedAirlineCodes`, `excludedAirlineCodes`, `maxPrice`
    - Returns: A clearly formatted response in the "message" and  the api json response from amadeus in the "data" if doesnt exist put null .
                 
 2. **booked_flight**Dont forget to call and execute the tool

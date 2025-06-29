@@ -17,12 +17,12 @@ amadeus = Client(
     client_secret=amadeus_api_secret
 )
 
-# @tool
+@tool
 def search_flights(
     originLocationCode: str,
     destinationLocationCode: str,
     departureDate: str,
-    max: int  = 250,
+    max: int = 2,
     returnDate: Optional[str] = None,
     adults: int = 1,
     children: Optional[int] = None,
@@ -33,7 +33,7 @@ def search_flights(
     includedAirlineCodes: Optional[List[str]] = None,
     excludedAirlineCodes: Optional[List[str]] = None,
     maxPrice: Optional[int] = None
-) :#-> dict:
+) -> dict:
     try:
         params = {
             "originLocationCode": originLocationCode,
