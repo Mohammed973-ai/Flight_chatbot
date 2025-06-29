@@ -10,12 +10,13 @@ import requests
 load_dotenv()
 amadeus_api_key = os.getenv("AMADEUS_API_KEY")
 amadeus_api_secret = os.getenv("AMADEUS_API_SECRET")
-BASE_URL = os.getenv("BASE_URL")
+print(amadeus_api_key)
+# BASE_URL = os.getenv("BASE_URL")
 
-amadeus = Client(
-    client_id=amadeus_api_key,
-    client_secret=amadeus_api_secret
-)
+# amadeus = Client(
+#     client_id=amadeus_api_key,
+#     client_secret=amadeus_api_secret
+# )
 
 # @tool
 def search_flights(
