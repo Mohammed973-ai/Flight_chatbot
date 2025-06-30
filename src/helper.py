@@ -10,15 +10,13 @@ import requests
 load_dotenv()
 amadeus_api_key = os.getenv("AMADEUS_API_KEY")
 amadeus_api_secret = os.getenv("AMADEUS_API_SECRET")
-print(amadeus_api_key)
-# BASE_URL = os.getenv("BASE_URL")
+BASE_URL = os.getenv("BASE_URL")
+amadeus = Client(
+    client_id=amadeus_api_key,
+    client_secret=amadeus_api_secret
+)
 
-# amadeus = Client(
-#     client_id=amadeus_api_key,
-#     client_secret=amadeus_api_secret
-# )
-
-# @tool
+@tool
 def search_flights(
     originLocationCode: str,
     destinationLocationCode: str,
@@ -34,7 +32,7 @@ def search_flights(
     includedAirlineCodes: Optional[List[str]] = None,
     excludedAirlineCodes: Optional[List[str]] = None,
     maxPrice: Optional[int] = None
-) :#-> dict:
+) -> dict:
     try:
         params = {
             "originLocationCode": originLocationCode,
@@ -110,6 +108,12 @@ def search_flights(
 
 @tool
 def booked_flight(access_token: str) -> dict:
+    """
+    description : when user wants see its booked flights  
+    input : access_token
+    returns : json with user's booked flights
+    Note : if access token is not provied ask user to login and make the "login":True ub json response
+    """
     if not access_token:
         return {
             "type": "booked_flight",
@@ -130,7 +134,7 @@ def booked_flight(access_token: str) -> dict:
             return {
                 "type": "booked_flight",
                 "success": True,
-                "message": "You have no confirmed bookings to cancel.",
+                "message": "You have no confirmed bookings",
                 "login": False,
                 "data": None
             }
@@ -169,6 +173,12 @@ def booked_flight(access_token: str) -> dict:
 
 @tool
 def cancel_flight(access_token: str, bookingRef: str) -> dict:
+    """
+    describtion : it cancels flights that is already booked 
+    input : access_token , bookingref both mandatory
+    return : message of success or failure 
+    Note: if access token isnot provided ask user to login,and make the "login" :True in json response
+    """
     if not access_token:
         return {
             "type": "cancel_flight",
@@ -250,8 +260,9 @@ def update_user_profile(
     useRecommendationSystem: Optional[bool] = None
 ) -> dict:
     """
-    Updates user profile fields that users are allowed to change.
-    Returns a friendly message for the chatbot, even on error.
+    description : Updates user profile like phone number,country and other fields that users are allowed to change.  
+    Returns a friendly message that the profile hasbeen updated,or error.
+    Note : if access token not provided ask user to login and make the "login" : True in json response
     """
     if not access_token:
         return {
@@ -325,11 +336,12 @@ def is_strong_password(pw: str) -> bool:
             re.search(r"[^A-Za-z0-9]", pw)
         )
 @tool
-def change_user_password(
-    access_token: str,
-    oldPassword: str,
-    newPassword: str
-) -> dict:
+def change_user_password(access_token: str, oldPassword: str, newPassword: str) -> dict:
+    """description : it changes user password from old password to new password  
+    input : access_token,oldpassword,newpassword 
+    returns : json that tell user that the password has been changed successfully 
+    Note:if access token is not provided askuser to login and make "login" : True in the json response
+    """
     if not access_token:
         return {
             "type": "change_user_password",
@@ -391,6 +403,9 @@ def change_user_password(
 
 @tool
 def request_password_reset(email: str) -> dict:
+    """description : it requests password reset where a mail will be sent to user mail  with code to reset the password 
+    input : mail **mandatory**
+    returns : json with confirmation that the code sent to user or error occurred """
     payload = {"email": email}
     try:
         response = requests.post(f"{BASE_URL}/users/request-password-reset", json=payload)
@@ -425,11 +440,14 @@ def request_password_reset(email: str) -> dict:
 
 @tool
 def reset_password_with_code(code: str, newPassword: str) -> dict:
+    """description : when user wants to reset password, they give you code and new password to reset it  
+    input : code,newpassword
+    returns : json with confirmation that the password was reset or error occurred"""
     if not is_strong_password(newPassword):
         return {
             "type": "reset_password_with_code",
             "success": True,
-            "message": "New password is not strong enough. It must be at least 10 characters long and include an uppercase letter, lowercase letter, number, and symbol.",
+            "message": "❌New password is not strong enough. It must be at least 10 characters long and include an uppercase letter, lowercase letter, number, and symbol.",
             "login": False,
             "data": None
         }

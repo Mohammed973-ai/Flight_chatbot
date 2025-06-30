@@ -18,7 +18,7 @@ storage =SqliteStorage(table_name="agent_sessions", db_file="tmp/session_memory.
 flight_tools = [search_flights, booked_flight, cancel_flight]
 user_tools = [change_user_password, request_password_reset, reset_password_with_code,customer_service]
 agent = Agent(
-    model=Gemini(id = "gemini-2.0-flash",api_key=gemini_key),
+    model=Groq(id = "llama-3.3-70b-versatile",api_key=groq_key),
     # Memory Config
     add_history_to_messages=True,         # short-term memory (session memory)
     storage=storage,                      # sesisons Database
@@ -33,4 +33,3 @@ agent = Agent(
     # UX Config
     markdown=False                        # disables markdown output formatting
 )
-
