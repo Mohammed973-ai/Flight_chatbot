@@ -88,11 +88,11 @@ def search_flights(
             "data": response.body
         }
 
-    except ResponseError:
+    except ResponseError as e :
         return {
             "type": "search_flights",
             "success": False,
-            "message": "❌ Sorry, we're having trouble accessing flight data at the moment. Please try again later.",
+            "message": f"❌ Sorry, we're having trouble accessing flight data at the moment. Please try again later.",
             "login": False,
             "data": None
         }
@@ -162,11 +162,11 @@ def booked_flight(access_token: str) -> dict:
             "data": None
         }
 
-    except Exception:
+    except Exception :
         return {
             "type": "booked_flight",
             "success": False,
-            "message": "Failed to retrieve bookings. Please try again later.",
+            "message": f"Failed to retrieve bookings. Please try again later.",
             "login": False,
             "data": None
         }

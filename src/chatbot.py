@@ -28,7 +28,6 @@ agent = Agent(
     # Tools & Instructions
     tools=flight_tools + user_tools,      # combined tool list
     instructions=Instructions,    # system prompt / persona
-    structured_outputs=True ,  
     show_tool_calls=False,
     # UX Config
     markdown=False                        # disables markdown output formatting

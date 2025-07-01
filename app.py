@@ -53,9 +53,8 @@ async def chat_handler(data: ChatInput):
     )
 
     try:
-        response = router_agent.run(msg, user_id=user_id, session_id=session_id)
+        response = agent.run(msg, user_id=user_id, session_id=session_id)
         raw = response.content.strip()
-        print(raw)
         if raw.startswith("```json"):
             raw = raw[len("```json"):].strip()
         elif raw.startswith("```"):
