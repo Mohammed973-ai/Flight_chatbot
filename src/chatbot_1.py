@@ -61,7 +61,7 @@ router_agent= Team(
     enable_session_summaries=True,        # summary memory
     # UX Config
     markdown=False,                 # disables markdown output formatting
-    show_tool_calls=True,
+    show_tool_calls=False,
 )
 # user_id= "1"
 # session_id="1"
