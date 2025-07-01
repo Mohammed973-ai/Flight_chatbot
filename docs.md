@@ -6,7 +6,7 @@ This API allows users to interact with a smart flight chatbot for operations lik
 
 ## 📍 Base URL
 
-> **Note:** https://chatbot-sky-shifters.duckdns.org/.
+### 🌐 [https://chatbot-sky-shifters.duckdns.org](https://chatbot-sky-shifters.duckdns.org)
 
 ---
 
