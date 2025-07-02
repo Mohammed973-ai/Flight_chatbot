@@ -6,19 +6,11 @@ from src.chatbot import agent
 from src.chatbot_1 import router_agent
 import os,shutil
 import json
-from fastapi.middleware.cors import CORSMiddleware
 
 
 
 app = FastAPI(title="Flight Agent API", version="1.0.0")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://sky-shifters.vercel.app"],  # Frontend origin
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 class ChatInput(BaseModel):
     message: str
