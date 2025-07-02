@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from agno.agent import Message
 from typing import Optional
@@ -10,6 +11,13 @@ import json
 
 
 app = FastAPI(title="Flight Agent API", version="1.0.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://sky-shifters.vercel.app"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ChatInput(BaseModel):
