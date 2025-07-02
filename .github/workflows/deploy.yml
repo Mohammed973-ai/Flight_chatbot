@@ -3,7 +3,7 @@ name: Deploy Flight Chatbot
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   deploy:
@@ -24,7 +24,8 @@ jobs:
           cd ~/Flight_chatbot
 
           echo "✅ Pulling latest code"
-          git pull origin main
+          git fetch origin main
+          git reset --hard origin/main
 
           echo "✅ Creating .env file"
           cat <<EOF > .env
@@ -35,8 +36,16 @@ jobs:
           GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
           EOF
 
-          echo "✅ Installing dependencies"
+          echo "✅ Creating virtual environment if not exists"
+          python3 -m venv venv
+
+          echo "✅ Activating virtual environment"
           source venv/bin/activate
+
+          echo "✅ Upgrading pip"
+          pip install --upgrade pip
+
+          echo "✅ Installing dependencies"
           pip install -r requirements.txt
 
           echo "✅ Creating start.sh..."
@@ -49,12 +58,11 @@ jobs:
 
           chmod +x start.sh
 
-          echo "✅ Starting/Restarting PM2 process..."
+          echo "✅ Restarting PM2 process..."
           pm2 delete flight-chatbot || true
           pm2 start ./start.sh --name flight-chatbot
           pm2 save
 
           echo "🚀 Deployment complete!"
-
           echo "✅ PM2 status:"
           pm2 status
