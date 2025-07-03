@@ -56,8 +56,8 @@ async def chat_handler(data: ChatInput):
                 "data": None
             }
         }
-@app.get("/")
-def root():
+@app.get("/health")
+def health_check():
     return {"status": "ok"}
 
     msg = Message(
