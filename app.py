@@ -56,6 +56,9 @@ async def chat_handler(data: ChatInput):
                 "data": None
             }
         }
+@app.get("/")
+def root():
+    return {"status": "ok"}
 
     msg = Message(
         role="user",
