@@ -57,9 +57,9 @@ async def chat_handler(data: ChatInput):
             }
         }
 @app.get("/health")
+@app.head("/health")
 def health_check():
     return {"status": "ok"}
-
     msg = Message(
         role="user",
         content=message + (f" my_access token : {token}" if token else ""),
