@@ -23,34 +23,36 @@ general_tools = [customer_service]
 flight_agent = Agent(
          name = "flight_agent",
          role = "handle flight services like search_flights,or cancel flights and check for booked flights",
-     model=Groq(id = "qwen/qwen3-32b",api_key=groq_key),
+     model=Groq(id = "qwen-qwq-32b",api_key=groq_key),
      instructions=flight_instructions,
      tools =flight_tools,
-     show_tool_calls=True
+     show_tool_calls=False
 
 )
 user_agent = Agent(
     name= "user_agent",
-    role = "handle user services like change_user_password, request_password_reset, reset_password_with_code,update_user_profile",
+    role = "handle user services like change_user_password,request_password_reset, reset_password_with_code,update_user_profile",
     model=Groq(id = "llama-3.3-70b-versatile",api_key=groq_key),
     tools = user_tools,
     instructions=user_instructions,
-    show_tool_calls=True
+    show_tool_calls=False
 
 )
 general_agent = Agent(
     name= "customer_service_and_chat_agent",
-    role = "answer any general questions about flights or respond to user if the prompt is general (e.g.HI, how are you)  ",
+    role = "answer any general questions about \
+        flights or respond to user if the prompt is general\
+              (e.g.HI, how are you)  ",
     model=Groq(id = "qwen-qwq-32b",api_key=groq_key),
     tools = general_tools,
     instructions=cutomer_service_and_chat_instructions,
-    show_tool_calls=True
+    show_tool_calls=False
 
 )
 router_agent= Team(
     name = "flight_team",
     mode ="route",
-    model=Groq(id = "qwen/qwen3-32b",api_key=groq_key),
+    model=Groq(id = "qwen-qwq-32b",api_key=groq_key),
     members=[flight_agent,user_agent,general_agent],
     storage=storage,                      # sesisons Database
     memory=memory,
@@ -63,6 +65,6 @@ router_agent= Team(
     markdown=False,                 # disables markdown output formatting
     show_tool_calls=False,
 )
-# user_id= "1"
-# session_id="1"
-# router_agent.print_response("I want to search flights from cairo to dubai on 15-7-2025",user_id=user_id,session_id=session_id)
+user_id= "5488181516"
+session_id="1"
+router_agent.print_response("I want to change my password from ",user_id=user_id,session_id=session_id)

@@ -12,9 +12,11 @@ import os
 load_dotenv()
 groq_key = os.getenv("GROQ_API_KEY")
 gemini_key = os.getenv("GEMINI_API_KEY")
-memory_db = SqliteMemoryDb(table_name="users_memory", db_file="tmp/User_preferences_memory.db")
+memory_db = SqliteMemoryDb(table_name="users_memory", 
+                           db_file="tmp/User_preferences_memory.db")
 memory = Memory(db=memory_db) # user prefernces memory
-storage =SqliteStorage(table_name="agent_sessions", db_file="tmp/session_memory.db")
+storage =SqliteStorage(table_name="agent_sessions", 
+                    db_file="tmp/session_memory.db")
 flight_tools = [search_flights, booked_flight, cancel_flight]
 user_tools = [change_user_password, request_password_reset, reset_password_with_code,customer_service]
 agent = Agent(
@@ -32,3 +34,6 @@ agent = Agent(
     # UX Config
     markdown=False                        # disables markdown output formatting
 )
+user_id= "4"
+session_id="1"
+agent.print_response("I want to search flights from cairo to dubai on 15/7/2025 ",user_id=user_id,session_id=session_id)

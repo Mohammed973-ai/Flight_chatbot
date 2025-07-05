@@ -16,7 +16,7 @@ amadeus = Client(
     client_secret=amadeus_api_secret
 )
 
-# @tool
+@tool
 def search_flights(
     originLocationCode: str,
     destinationLocationCode: str,
@@ -32,7 +32,7 @@ def search_flights(
     includedAirlineCodes: Optional[List[str]] = None,
     excludedAirlineCodes: Optional[List[str]] = None,
     maxPrice: Optional[int] = None
-) :#-> dict:
+) -> dict:
     try:
         params = {
             "originLocationCode": originLocationCode,
@@ -92,7 +92,7 @@ def search_flights(
         return {
             "type": "search_flights",
             "success": False,
-            "message": f"❌ Sorry, we're having trouble accessing flight data at the moment. Please try again later.",
+            "message": f"❌ Sorry, we're having trouble accessing flight data at the moment. Please try again later.{str(e)}",
             "login": False,
             "data": None
         }
@@ -109,7 +109,7 @@ def search_flights(
 @tool
 def booked_flight(access_token: str) -> dict:
     """
-    description : when user wants see its booked flights  
+    description : when user wants see its booked flights or perform cancelation  
     input : access_token
     returns : json with user's booked flights
     Note : if access token is not provied ask user to login and make the "login":True ub json response
@@ -144,7 +144,7 @@ def booked_flight(access_token: str) -> dict:
             return {
                 "type": "booked_flight",
                 "success": True,
-                "message": f"Found one confirmed booking: {booking['originCity']} → {booking['destinationCity']} on {booking['departureDate'].split('T')[0]} with bookingRef {booking['bookingRef']}.\nProceeding to cancel this booking.",
+                "message": f"Found one confirmed booking: {booking['originCity']} → {booking['destinationCity']} on {booking['departureDate'].split('T')[0]} with bookingRef {booking['bookingRef']}.",
                 "login": False,
                 "data": None
             }
@@ -157,7 +157,7 @@ def booked_flight(access_token: str) -> dict:
         return {
             "type": "booked_flight",
             "success": True,
-            "message": f"Here are your confirmed bookings:\n\n{options}\n\nPlease provide the booking reference you'd like to cancel.",
+            "message": f"Here are your confirmed bookings:\n\n{options}",
             "login": False,
             "data": None
         }
