@@ -14,11 +14,15 @@ app = FastAPI(title="Flight Agent API", version="1.0.0")
 # ✅ CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://sky-shifters.vercel.app"], 
+    allow_origins=[
+        "https://sky-shifters.vercel.app",
+        "https://taier.z6.web.core.windows.net"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # ✅ Data model
 class ChatInput(BaseModel):
