@@ -32,7 +32,7 @@ flight_agent = Agent(
 user_agent = Agent(
     name= "user_agent",
     role = "handle user services like change_user_password,request_password_reset, reset_password_with_code,update_user_profile",
-    model=Groq(id = "llama-3.3-70b-versatile",api_key=groq_key),
+    model=Groq(id = "qwen-qwq-32b",api_key=groq_key),
     tools = user_tools,
     instructions=user_instructions,
     show_tool_calls=False
@@ -65,6 +65,3 @@ router_agent= Team(
     markdown=False,                 # disables markdown output formatting
     show_tool_calls=False,
 )
-user_id= "5488181516"
-session_id="1"
-router_agent.print_response("I want to change my password from ",user_id=user_id,session_id=session_id)

@@ -18,7 +18,7 @@ memory = Memory(db=memory_db) # user prefernces memory
 storage =SqliteStorage(table_name="agent_sessions", 
                     db_file="tmp/session_memory.db")
 flight_tools = [search_flights, booked_flight, cancel_flight]
-user_tools = [change_user_password, request_password_reset, reset_password_with_code,customer_service]
+user_tools = [change_user_password, request_password_reset, reset_password_with_code,customer_service,update_user_profile]
 agent = Agent(
     model=Groq(id = "llama-3.3-70b-versatile",api_key=groq_key),
     # Memory Config
@@ -34,6 +34,3 @@ agent = Agent(
     # UX Config
     markdown=False                        # disables markdown output formatting
 )
-user_id= "4"
-session_id="1"
-agent.print_response("I want to search flights from cairo to dubai on 15/7/2025 ",user_id=user_id,session_id=session_id)
