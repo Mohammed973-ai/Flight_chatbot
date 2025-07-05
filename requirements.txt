@@ -6,3 +6,4 @@ setuptools
 fastapi
 uvicorn
 google-genai
+sqlalchemy
